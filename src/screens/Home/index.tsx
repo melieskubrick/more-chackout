@@ -45,11 +45,11 @@ function Home() {
     try {
       setLoading(true);
 
-      const newProductsResponse = await getAllProducts(5);
       const productsResponse = await getAllProducts();
+      const itens = productsResponse.data;
 
-      setNewProducts(newProductsResponse.data);
-      setProducts(productsResponse.data);
+      setNewProducts(itens.slice(0, 5));
+      setProducts(itens);
     } catch (error) {
       console.log('err:::', error);
     } finally {
@@ -58,6 +58,7 @@ function Home() {
   };
 
   useEffect(() => {
+    setCategorySelected('últimos');
     fetchData();
   }, []);
 
@@ -76,8 +77,8 @@ function Home() {
             numColumns={2}
             inverted
             data={products}
-            renderItem={({ item }: IProduct) => (
-              <Product addInner widthFull item={item} />
+            renderItem={({ item }) => (
+              <Product addInner widthFull item={item as IProduct} />
             )}
           />
         ),
@@ -97,7 +98,7 @@ function Home() {
             showsHorizontalScrollIndicator={false}
             horizontal
             data={newProducts}
-            renderItem={({ item }: IProduct) => <Product item={item} />}
+            renderItem={({ item }) => <Product item={item as IProduct} />}
           />
         ),
       },
@@ -111,10 +112,9 @@ function Home() {
       data: showNewProducts ? items : productsItens,
       indices,
     };
-  }, [products]);
+  }, [newProducts, products]);
 
   useEffect(() => {
-    console.log('category selected', categorySelected);
     fetchProductPerCategory(`${categorySelected}`);
   }, [categorySelected]);
 
@@ -130,7 +130,7 @@ function Home() {
         <S.List
           data={data}
           stickyHeaderIndices={indices}
-          renderItem={({ item }) => item.render()}
+          renderItem={({ item }: Item | any) => item.render()}
         />
       )}
     </S.Container>
