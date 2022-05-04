@@ -1,8 +1,12 @@
 import styled from 'styled-components/native';
 
+interface IProduct {
+  widthFull: boolean;
+}
+
 export const Container = styled.View`
   flex: 1;
-  margin: 0 8px;
+  margin: 10px 8px;
 `;
 
 export const Row = styled.View`
@@ -32,30 +36,30 @@ export const ContainerImage = styled.View.attrs({
   elevation: 5,
 })``;
 
-export const ProductImage = styled.Image`
+export const ProductImage = styled.Image<IProduct>`
   height: 180px;
-  width: 170px;
+  width: ${({ widthFull }) => (widthFull ? '100%' : '170px')};
   border-radius: 10px;
   margin-bottom: 8px;
 `;
 
-export const Category = styled.Text`
+export const Category = styled.Text<IProduct>`
   font-family: ${({ theme }) => theme.typography.bold};
   font-size: 8px;
   color: ${({ theme }) => theme.colors.primary};
   margin-bottom: 2px;
-  width: 170px;
+  width: ${({ widthFull }) => (widthFull ? '100%' : '170px')};
 `;
 
-export const Product = styled.Text`
+export const Product = styled.Text<IProduct>`
   font-family: ${({ theme }) => theme.typography.bold};
   font-size: 14px;
   color: ${({ theme }) => theme.colors.black};
   margin-bottom: 2px;
-  width: 170px;
+  width: ${({ widthFull }) => (widthFull ? '100%' : '170px')};
 `;
 
-export const ProductDescription = styled.Text`
+export const ProductDescription = styled.Text<IProduct>`
   font-family: ${({ theme }) => theme.typography.bold};
   font-size: 10px;
   color: ${({ theme }) => theme.colors.gray};

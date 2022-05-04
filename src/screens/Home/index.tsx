@@ -31,7 +31,7 @@ function Home() {
   const { data, indices } = useMemo(() => {
     const items: Item[] = [
       {
-        key: 'news_products',
+        key: 'news',
         render: () => <Divider title="Novidades" />,
         isTitle: true,
       },
@@ -44,6 +44,23 @@ function Home() {
             contentContainerStyle={{ paddingHorizontal: 20 }}
             data={products}
             renderItem={({ item }: IProduct) => <Product item={item} />}
+          />
+        ),
+      },
+      {
+        key: 'list',
+        render: () => <Divider title="Listagem" />,
+        isTitle: true,
+      },
+      {
+        key: 'list_products',
+        render: () => (
+          <S.List
+            showsHorizontalScrollIndicator={false}
+            numColumns={2}
+            columnWrapperStyle={{ paddingHorizontal: 20 }}
+            data={products}
+            renderItem={({ item }: IProduct) => <Product widthFull item={item} />}
           />
         ),
       },
