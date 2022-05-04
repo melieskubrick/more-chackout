@@ -21,7 +21,7 @@ const Product = ({ item, widthFull }: IProps) => {
         {item.description}
       </S.ProductDescription>
       <S.Row>
-        <S.Price widthFull={widthFull}>${item.price}</S.Price>
+        <S.Price>${item.price}</S.Price>
         <S.ContainerAdd>
           <S.Add source={require('#/assets/images/icons/ADD.png')} />
         </S.ContainerAdd>
