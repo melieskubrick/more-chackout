@@ -10,6 +10,7 @@ const theme = {
   typography: {
     bold: 'WorkSans-Bold',
     semi_bold: 'WorkSans-SemiBold',
+    regular: 'WorkSans-Regular',
   },
 };
 

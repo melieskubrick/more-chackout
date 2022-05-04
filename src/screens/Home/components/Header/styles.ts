@@ -24,7 +24,12 @@ export const ContainerIcon = styled.TouchableOpacity``;
 
 export const Icon = styled.Image``;
 
-export const List = styled.FlatList``;
+export const List = styled.FlatList.attrs({
+  horizontal: true,
+  showsHorizontalScrollIndicator: false,
+  contentContainerStyle: { paddingHorizontal: 20 },
+  paddingBottom: 8
+})``;
 
 export const Filter = styled.Text`
   font-size: 8px;

@@ -16,3 +16,30 @@ export const getAllCategories = async (): Promise<string[] | any> => {
     return error;
   }
 };
+
+export const getProductsPerCategory = async (
+  category: string,
+): Promise<object[] | any> => {
+  try {
+    return await api.get(`/products/category/${category}`);
+  } catch (error: any) {
+    if (error.response) {
+      return error.response;
+    }
+    return error;
+  }
+};
+
+export const getAllProducts = async (
+  category: string,
+  limit?: number,
+): Promise<object[] | any> => {
+  try {
+    return await api.get(`/products?limit=${limit}`);
+  } catch (error: any) {
+    if (error.response) {
+      return error.response;
+    }
+    return error;
+  }
+};

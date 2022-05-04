@@ -1,3 +1,4 @@
+import Loading from '#/components/Loading';
 import { getAllCategories } from '#/services/api';
 import React, { useEffect, useState } from 'react';
 import Tag from '../Tag';
@@ -5,18 +6,27 @@ import Tag from '../Tag';
 import * as S from './styles';
 
 const Header = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const [categories, setCategories] = useState<string[] | any>([]);
+  const [categorySelected, setCategorySelected] = useState<string>();
 
   const fetchData = async () => {
     try {
+      setLoading(true);
       const categorieResponse = await getAllCategories();
       setCategories(categorieResponse.data);
-    } catch (error) {}
+    } catch (error) {
+      console.log('err:::', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  if (loading) return <Loading />;
 
   return (
     <S.Container>
@@ -31,12 +41,18 @@ const Header = () => {
       </S.MarginHorizontal>
 
       <S.List
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 20 }}
         horizontal
         data={categories}
-        keyExtractor={(res) => res}
-        renderItem={(res) => <Tag isSelected>{res.item}</Tag>}
+        keyExtractor={(res) => `${res}`}
+        renderItem={({ item }) => (
+          <Tag
+            key={`${item}`}
+            isSelected={item === categorySelected}
+            onPress={() => setCategorySelected(`${item}`)}
+          >
+            {`${item}`}
+          </Tag>
+        )}
       />
     </S.Container>
   );
