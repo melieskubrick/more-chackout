@@ -5,16 +5,20 @@ import Tag from '../Tag';
 
 import * as S from './styles';
 
-const Header = () => {
+interface IHeader {
+  categorySelected: string | undefined;
+  setCategorySelected: React.Dispatch<React.SetStateAction<string | undefined>>;
+}
+
+const Header = ({ categorySelected, setCategorySelected }: IHeader) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [categories, setCategories] = useState<string[] | any>([]);
-  const [categorySelected, setCategorySelected] = useState<string>();
 
   const fetchData = async () => {
     try {
       setLoading(true);
       const categorieResponse = await getAllCategories();
-      setCategories(categorieResponse.data);
+      setCategories(['últimos', ...categorieResponse.data]);
     } catch (error) {
       console.log('err:::', error);
     } finally {

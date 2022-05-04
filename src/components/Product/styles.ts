@@ -6,7 +6,7 @@ interface IProduct {
 
 export const Container = styled.View`
   flex: 1;
-  margin: 10px 8px;
+  margin: 10px 20px;
 `;
 
 export const Row = styled.View`
@@ -21,6 +21,7 @@ export const ContainerAdd = styled.TouchableOpacity`
   border-radius: 15px;
   align-items: center;
   justify-content: center;
+  background-color: ${({ theme }) => theme.colors.white};
 `;
 export const Add = styled.Image``;
 
@@ -37,7 +38,7 @@ export const ContainerImage = styled.View.attrs({
 })``;
 
 export const ProductImage = styled.Image<IProduct>`
-  height: 180px;
+  height: ${({ widthFull }) => (widthFull ? '140px' : '180px')};
   width: ${({ widthFull }) => (widthFull ? '100%' : '170px')};
   border-radius: 10px;
   margin-bottom: 8px;

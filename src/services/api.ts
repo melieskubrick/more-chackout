@@ -31,7 +31,6 @@ export const getProductsPerCategory = async (
 };
 
 export const getAllProducts = async (
-  category: string,
   limit?: number,
 ): Promise<object[] | any> => {
   try {
