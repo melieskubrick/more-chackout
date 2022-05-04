@@ -80,5 +80,15 @@ module.exports = {
     react: {
       version: 'detect',
     },
+    'import/resolver': {
+      'babel-plugin-root-import': {
+        rootPathPrefix: '#',
+        rootPathSuffix: 'src',
+      },
+      typescript: {},
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
   },
 };

@@ -1,8 +1,4 @@
-import { ITheme } from 'styled-components';
-
-const dark: ITheme = {
-  title: 'dark',
-
+const theme = {
   colors: {
     primary: '#8775FE',
   },
@@ -13,4 +9,4 @@ const dark: ITheme = {
   },
 };
 
-export { dark };
+export { theme };
