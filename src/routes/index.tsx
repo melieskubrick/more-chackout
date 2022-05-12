@@ -3,7 +3,9 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
 import Stack from './stack.routes';
-import AppProvider from '../context';
+import { ThemeProvider } from 'styled-components/native';
+
+import { theme } from '#/theme';
 
 if (__DEV__) {
   import('../../reactotron');
@@ -11,11 +13,11 @@ if (__DEV__) {
 
 function Routes() {
   return (
-    <AppProvider>
+    <ThemeProvider theme={theme}>
       <NavigationContainer>
         <Stack />
       </NavigationContainer>
-    </AppProvider>
+    </ThemeProvider>
   );
 }
 
