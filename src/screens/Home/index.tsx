@@ -5,7 +5,14 @@ import React, { useEffect, useMemo, useState } from 'react';
 import Divider from './components/Divider';
 import Header from './components/Header';
 
+import { useDispatch, useSelector } from 'react-redux';
+
 import * as S from './styles';
+import { AddCart } from '#/actions';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Alert } from 'react-native';
+import Button from '#/components/Button';
 
 interface Item {
   key: string;
@@ -13,12 +20,25 @@ interface Item {
   isTitle?: boolean;
 }
 
-function Home() {
+type NavigatorParamList = {
+  Cart: any;
+};
+
+const Home = () => {
   const [newProducts, setNewProducts] = useState<IProduct[]>([]);
-  const [products, setProducts] = useState<IProduct[]>([]);
+  const [productsData, setProducts] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [categorySelected, setCategorySelected] = useState<string>();
+  const [categorySelected, setCategorySelected] = useState<string | undefined>(
+    'últimos',
+  );
   const [showNewProducts, setShowNewProducts] = useState<boolean>(true);
+
+  const navigation =
+    useNavigation<NativeStackNavigationProp<NavigatorParamList, 'Cart'>>();
+
+  const { numberCart } = useSelector((state: any) => state.product);
+
+  const dispatch = useDispatch();
 
   const fetchProductPerCategory = async (category: string) => {
     if (categorySelected === 'últimos') {
@@ -58,7 +78,6 @@ function Home() {
   };
 
   useEffect(() => {
-    setCategorySelected('últimos');
     fetchData();
   }, []);
 
@@ -76,9 +95,18 @@ function Home() {
             showsHorizontalScrollIndicator={false}
             numColumns={2}
             inverted
-            data={products}
+            data={productsData}
             renderItem={({ item }) => (
-              <Product addInner widthFull item={item as IProduct} />
+              <Product
+                onPress={() => {
+                  const product = item as IProduct;
+                  Alert.alert('Item adicionado ao carrinho');
+                  dispatch(AddCart(product));
+                }}
+                addInner
+                widthFull
+                item={item as IProduct}
+              />
             )}
           />
         ),
@@ -98,7 +126,16 @@ function Home() {
             showsHorizontalScrollIndicator={false}
             horizontal
             data={newProducts}
-            renderItem={({ item }) => <Product item={item as IProduct} />}
+            renderItem={({ item }) => (
+              <Product
+                onPress={() => {
+                  const product = item as IProduct;
+                  Alert.alert('Item adicionado ao carrinho');
+                  dispatch(AddCart(product));
+                }}
+                item={item as IProduct}
+              />
+            )}
           />
         ),
       },
@@ -112,7 +149,7 @@ function Home() {
       data: showNewProducts ? items : productsItens,
       indices,
     };
-  }, [newProducts, products]);
+  }, [newProducts, productsData]);
 
   useEffect(() => {
     fetchProductPerCategory(`${categorySelected}`);
@@ -123,6 +160,7 @@ function Home() {
       <Header
         categorySelected={categorySelected}
         setCategorySelected={setCategorySelected}
+        bagPress={() => navigation.navigate('Cart')}
       />
       {loading ? (
         <Loading />
@@ -133,8 +171,16 @@ function Home() {
           renderItem={({ item }: Item | any) => item.render()}
         />
       )}
+      {numberCart > 0 && (
+        <S.BottomHeader>
+          <Button
+            onPress={() => navigation.navigate('Cart')}
+            title="IR PARA O CARRINHO"
+          />
+        </S.BottomHeader>
+      )}
     </S.Container>
   );
-}
+};
 
 export default Home;

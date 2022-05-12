@@ -6,6 +6,8 @@ import Stack from './stack.routes';
 import { ThemeProvider } from 'styled-components/native';
 
 import { theme } from '#/theme';
+import { Provider } from 'react-redux';
+import store from '#/store';
 
 if (__DEV__) {
   import('../../reactotron');
@@ -13,11 +15,13 @@ if (__DEV__) {
 
 function Routes() {
   return (
-    <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <Stack />
-      </NavigationContainer>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <NavigationContainer>
+          <Stack />
+        </NavigationContainer>
+      </ThemeProvider>
+    </Provider>
   );
 }
 

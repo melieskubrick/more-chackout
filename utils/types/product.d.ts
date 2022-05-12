@@ -10,3 +10,17 @@ type IProduct = {
     count: number;
   };
 };
+
+type ICard = {
+  id: number;
+  image: string;
+  title: string;
+  price: number;
+  quantity: number;
+};
+
+type IProductState = {
+  carts: ICard[];
+  products: Array;
+  numberCart: number;
+};

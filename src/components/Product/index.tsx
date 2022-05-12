@@ -6,15 +6,17 @@ interface IProps {
   widthFull?: boolean;
   addInner?: boolean;
   item: IProduct;
+  onPress?: (event: GestureResponderEvent) => void;
 }
 
-const Product = ({ item, widthFull, addInner }: IProps) => {
+const Product = ({ item, widthFull, addInner, onPress }: IProps) => {
   return (
     <S.Container>
       <S.ContainerImage>
         <S.ProductImage widthFull={widthFull} source={{ uri: item.image }} />
         {addInner && (
           <S.ContainerAdd
+            onPress={onPress}
             style={{ position: 'absolute', bottom: 16, right: 8 }}
           >
             <S.Add source={require('#/assets/images/icons/ADD.png')} />
@@ -31,7 +33,7 @@ const Product = ({ item, widthFull, addInner }: IProps) => {
       <S.Row>
         <S.Price>${item.price}</S.Price>
         {!addInner && (
-          <S.ContainerAdd>
+          <S.ContainerAdd onPress={onPress}>
             <S.Add source={require('#/assets/images/icons/ADD.png')} />
           </S.ContainerAdd>
         )}
