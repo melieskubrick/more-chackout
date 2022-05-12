@@ -24,7 +24,11 @@ const product = (
         ...state,
       };
     case FINALIZE:
-      return state = initProduct
+      return {
+        numberCart: 0,
+        carts: [],
+        products: [],
+      };
     case ADD_CART:
       if (state.numberCart == 0) {
         let cart = {
