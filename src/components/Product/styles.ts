@@ -34,7 +34,7 @@ export const ContainerImage = styled.View.attrs({
   shadowOpacity: 0.25,
   shadowRadius: 3.84,
 
-  elevation: 5,
+  elevation: 16,
 })``;
 
 export const ProductImage = styled.Image<IProduct>`
