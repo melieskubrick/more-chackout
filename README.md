@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/lucasmontano">
+  <a href="https://github.com/melieskubrick">
     <img alt="Made by Melies Kubrick" src="https://img.shields.io/badge/made%20by-Melies%20Kubrick-brightgreen">
   </a>
   <img alt="License" src="https://img.shields.io/badge/license-MIT-%2304D361">
